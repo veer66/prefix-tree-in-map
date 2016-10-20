@@ -1,14 +1,14 @@
 (ns prefix-tree-in-map.core)
 
-(defn add-word [words tab i]
-  (let [w (nth words i)
-        w-len (count w)]
+(defn add-member [members tab i]
+  (let [member (nth members i)
+        member-len (count member)]
     (loop [j 0 tab tab row 0]
-      (if (= w-len j)
+      (if (= member-len j)
         tab
-        (let [ch (nth w j)
-              terminal? (= (inc j) w-len)
-              key [row j ch]
+        (let [element (nth member j)
+              terminal? (= (inc j) member-len)
+              key [row j element]
               looked-up-row (get tab key)]
           (if (nil? looked-up-row)
             (recur (inc j)
@@ -20,14 +20,14 @@
 
 (defn make-prefix-tree
   "Make a prefix tree from sorted word list"
-  [words]
+  [members]
   (let [tab (transient (hash-map))]
     (persistent!
-     (reduce #(add-word words %1 %2)
+     (reduce #(add-member members %1 %2)
              tab
-             (range (count words))))))
+             (range (count members))))))
 
 (defn lookup
   "Lookup tree by one character"
-  [tree row offset ch]
-  (get tree [row offset ch]))
+  [tree row offset element]
+  (get tree [row offset element]))
