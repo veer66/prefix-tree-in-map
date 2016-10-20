@@ -28,5 +28,4 @@
              (lookup tree 0 0 "I"))
            [0 false]))))
 
-
 (run-tests)
