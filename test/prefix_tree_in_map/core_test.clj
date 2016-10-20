@@ -21,5 +21,12 @@
              [0 true]))
       (is (= (lookup tree 0 1 \B)
              [1 true])))))
-      
+
+(deftest list-of-phrases-test
+  (testing "basic"
+    (is (= (let [tree (make-prefix-tree [["I" "saw" "it"]])]
+             (lookup tree 0 0 "I"))
+           [0 false]))))
+
+
 (run-tests)
