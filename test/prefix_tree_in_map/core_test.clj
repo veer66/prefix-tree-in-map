@@ -7,6 +7,10 @@
     (is (= (let [tree (make-prefix-tree ["A"])]
              (lookup tree 0 0 \A))
            [0 true])))
+  (testing "add 1 char with payload and lookup"
+    (is (= (let [tree (make-prefix-tree-with-payloads [["A" 4711]])]
+             (lookup tree 0 0 \A))
+           [0 true 4711])))
   (testing "add 2 chars and lookup"
     (let [words ["AB"]
           tree (make-prefix-tree words)]

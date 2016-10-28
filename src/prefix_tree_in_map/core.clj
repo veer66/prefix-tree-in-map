@@ -1,8 +1,7 @@
 (ns prefix-tree-in-map.core)
 
-(defn add-member [members tab i]
-  (let [member (nth members i)
-        member-len (count member)]
+(defn add-member [tab member i has-payload? payload]
+  (let [member-len (count member)]
     (loop [j 0 tab tab row 0]
       (if (= member-len j)
         tab
@@ -12,20 +11,39 @@
               looked-up-row (get tab key)]
           (if (nil? looked-up-row)
             (recur (inc j)
-                   (assoc! tab key [i terminal?])
+                   (assoc! tab key
+                           (if has-payload?
+                             [i terminal? payload]
+                             [i terminal?]))
                    i)
             (recur (inc j)
                    tab
                    row)))))))
+
+(defn make-prefix-tree-with-payloads
+  "Make a prefix tree from sorted word list with payloads"
+  [members-with-payloads]
+  (let [tab (transient (hash-map))]
+    (persistent!
+     (reduce #(add-member %1
+                          (first %2)
+                          (second %2)
+                          true
+                          (nth %2 2))
+             tab
+             (map vector
+                  (map first members-with-payloads)
+                  (range (count members-with-payloads))
+                  (map second members-with-payloads))))))
 
 (defn make-prefix-tree
   "Make a prefix tree from sorted word list"
   [members]
   (let [tab (transient (hash-map))]
     (persistent!
-     (reduce #(add-member members %1 %2)
+     (reduce #(add-member %1 (first %2) (second %2) false nil)
              tab
-             (range (count members))))))
+             (map vector members (range (count members)))))))
 
 (defn lookup
   "Lookup tree by one character"
