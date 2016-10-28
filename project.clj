@@ -1,4 +1,4 @@
-(defproject prefix-tree-in-map "0.1.0-SNAPSHOT"
+(defproject prefix-tree-in-map "0.1.1"
   :description "prefix-tree-in-map is a library for storing and looking up a prefix tree in hash-map"
   :url "https://gitlab.com/veer66/prefix-tree-in-map"
   :license {:name "LGPL v3"
