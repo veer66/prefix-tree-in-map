@@ -18,7 +18,7 @@
                    i)
             (recur (inc j)
                    tab
-                   row)))))))
+                   (first looked-up-row))))))))
 
 (defn make-prefix-tree-with-payloads
   "Make a prefix tree from sorted word list with payloads"

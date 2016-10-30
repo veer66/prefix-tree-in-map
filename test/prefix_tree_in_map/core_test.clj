@@ -32,4 +32,19 @@
              (lookup tree 0 0 "I"))
            [0 false]))))
 
+
+(deftest more-rows
+  (testing "two rows"
+    (is (= (let [tree (make-prefix-tree [["A" "B"]
+                                         ["B" "C"]])]
+             (lookup tree 1 1 "C"))
+           [1 true])))
+  (testing "three rows"
+    (is (= (let [tree (make-prefix-tree [["A" "B"]
+                                         ["B" "C"]
+                                         ["B" "K" "Foo"]])]
+             (lookup tree 1 1 "K"))
+           [2 false]))))
+
+
 (run-tests)
