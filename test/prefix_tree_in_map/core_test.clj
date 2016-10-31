@@ -44,7 +44,14 @@
                                          ["B" "C"]
                                          ["B" "K" "Foo"]])]
              (lookup tree 1 1 "K"))
-           [2 false]))))
-
+           [2 false])))
+  (testing "more"
+    (is (= (let [tree (make-prefix-tree [["A"]
+                                         ["B"]
+                                         ["C" "X"]
+                                         ["C" "Y" "Z"]
+                                         ["D"]])]
+             (lookup tree 3 2 "Z"))
+           [3 true]))))
 
 (run-tests)
