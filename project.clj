@@ -3,4 +3,4 @@
   :url "https://github.com/veer66/prefix-tree-in-map.clj"
   :license {:name "Unlicense"
             :url "http://unlicense.org"}
-  :dependencies [[org.clojure/clojure "1.8.0"]])
+  :dependencies [[org.clojure/clojure "1.9.0"]])
